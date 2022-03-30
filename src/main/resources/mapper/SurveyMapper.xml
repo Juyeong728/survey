@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.survey.mapper.SurveyMapper">
+
+	   <select id="selectSurveyList">
+	      SELECT	*	
+	      FROM		survey
+	      LIMIT		9
+	   </select>
+	   
+	   
+	   <select id="getSurvey">
+	      SELECT *	FROM survey	WHERE s_idx = #{s_idx}
+	   </select>
+	   
+	   
+	   <insert id="insertSurvey">
+	      INSERT INTO survey(title, description) 
+	      VALUES			(#{title}, #{description})
+	      <selectKey keyProperty="s_idx" resultType="Integer">
+		    SELECT LAST_INSERT_ID()
+		  </selectKey>
+	   </insert>
+	   
+	   
+	   <insert id="insertQuestion">
+	      INSERT INTO question(q_value, q_type, s_idx) 
+	      VALUES
+	      <foreach collection="questions" item="question" separator=",">
+	      		(#{question.q_value}, #{question.q_type}, #{s_idx})
+	      </foreach>
+	   </insert>
+	   
+	   
+	   <insert id="insertItem">
+		  INSERT INTO item(i_value, s_idx, q_idx) 
+		  VALUES 
+		  <foreach collection="questions" item="question" index="i" separator=",">
+			<foreach collection="question.items" item="item" separator=",">
+				<choose>
+					<when test="item.i_value != null">
+						(#{item.i_value}, #{s_idx}, 
+							(	SELECT		q_idx
+								FROM		question
+								WHERE		s_idx = #{s_idx}
+								ORDER BY	q_idx
+								LIMIT		1
+							) + #{i}
+						)
+					</when>
+				</choose>
+			</foreach>
+	 	  </foreach>
+	   </insert>
+	   
+	   
+	   <select id="getQuestions" resultType="Question">
+	      SELECT * FROM question WHERE s_idx = #{s_idx}
+	   </select>
+	
+	   
+</mapper>
+

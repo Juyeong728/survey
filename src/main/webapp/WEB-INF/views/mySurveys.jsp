@@ -1,0 +1,89 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Main Page</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right">
+          	<!-- 
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+             -->
+            <a class="btn btn-success" href="/login">Sign in</a>
+            <a class="btn btn-success" href="/beforeSignUp">Sign up »</a>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+	</nav>
+	
+	<div class="container">
+	
+		<div class="masthead">
+	        <h3 class="text-muted">Project name</h3>
+	        <nav>
+	          <ul class="nav nav-justified">
+	            <li><a href="#">Home</a></li>
+	            <li class="active"><a href="#" class="showMySurveys">Projects</a></li>
+	            <li><a href="#">Services</a></li>
+	            <li><a href="#">About</a></li>
+	            <li><a href="#">Contact</a></li>
+	          </ul>
+	        </nav>
+      	</div>
+      	
+      	<div id="content">
+		<div class="jumbotron">
+	        <h1>Create a survey!</h1>
+	        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
+	        <p><a class="btn btn-lg btn-success" href="/createSurvey" role="button">Get started »</a></p>
+      	</div>
+      	</div>
+      	
+      	<div class="row">
+      		<!--  
+		      <div class="col-md-12">
+		         <h2>My current surveys</h2>
+		       </div>
+		     -->
+	      	<c:forEach items="${surveys}" var="survey" varStatus="status">
+	      		<div class="col-md-4">
+		          <h2>${survey.title}</h2>
+		          <p>${survey.description}</p>
+		          <p><a class="btn btn-default" href="#" role="button">Join this survey »</a></p>
+		        </div>
+	      	</c:forEach>
+      	</div>
+      	
+      	<hr class="featurette-divider">
+
+      	<footer>
+        	<p>© Company 2022</p>
+      	</footer>
+	</div>
+</body>
+</html>
