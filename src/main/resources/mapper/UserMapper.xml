@@ -6,12 +6,12 @@
        SELECT       u_auth
        FROM         authority
        WHERE        1=1
-       AND          u_idx = #{u_id}
+       AND          u_idx = #{username}
     </select>
 
    <!-- 회원 불러오기 -->
    <select id="readUser" parameterType="String" resultType="User">
-      SELECT         id                 		as u_id,
+      SELECT         id                 		as username,
 			         password             		as password,
 			         writer                		as u_name,
 			         isAccountNonExpired        as isAccountNonExpired,
@@ -20,7 +20,7 @@
 			         isEnabled          		as isEnabled
       FROM         	 user
       WHERE          1=1
-      AND            id   =   #{u_id}
+      AND            id   =   #{username}
    </select>
    
    <!-- 회원 등록 -->
@@ -34,7 +34,7 @@
          isCredentialNonExpired,
          isEnabled
       ) VALUES (
-         #{u_id},
+         #{username},
          #{password},
          #{u_name},
          #{isAccountNonExpired},
@@ -51,10 +51,10 @@
           u_auth
        ) VALUES
          <foreach item="authority" index="index" collection="authorities" separator=",">
-            (#{u_id}, #{authority.role})
+            (#{username}, #{authority.role})
          </foreach>
          ON DUPLICATE KEY
          UPDATE
-            u_idx = #{u_id}
+            u_idx = #{username}
     </insert>
 </mapper>

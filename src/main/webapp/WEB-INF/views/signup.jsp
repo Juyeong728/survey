@@ -17,7 +17,7 @@
         	<hr>
             
             <label for="inputEmail">Email address</label>
-	        <input type="text" id="inputEmail" class="form-control" placeholder="Email address" name="u_id">
+	        <input type="text" id="inputEmail" class="form-control" placeholder="Email address" name="username">
 	        <hr>
             <label for="inputName">Name</label>
 	        <input type="text" id="inputName" class="form-control" placeholder="Name" name="u_name">

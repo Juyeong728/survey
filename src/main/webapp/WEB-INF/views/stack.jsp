@@ -60,7 +60,7 @@
       	
       	<div id="content">
 		<div class="jumbotron">
-	        <h1>Create a survey!</h1>
+	        <h1>Create your survey!</h1>
 	        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
 	        <p><a class="btn btn-lg btn-success" href="/createSurvey" role="button">Get started »</a></p>
       	</div>

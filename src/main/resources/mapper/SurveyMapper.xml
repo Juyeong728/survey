@@ -5,7 +5,17 @@
 	   <select id="selectSurveyList">
 	      SELECT	*	
 	      FROM		survey
-	      LIMIT		9
+	      LIMIT		${pageNum}, 5
+	   </select>
+	   
+	   
+	   <select id="getQuestions" resultType="Question">
+	      SELECT * FROM question WHERE s_idx = #{s_idx}
+	   </select>
+	   
+	   
+	   <select id="getSurveyCount" resultType="int">
+	      SELECT COUNT(*) count	FROM survey
 	   </select>
 	   
 	   
@@ -53,10 +63,6 @@
 	 	  </foreach>
 	   </insert>
 	   
-	   
-	   <select id="getQuestions" resultType="Question">
-	      SELECT * FROM question WHERE s_idx = #{s_idx}
-	   </select>
 	
 	   
 </mapper>

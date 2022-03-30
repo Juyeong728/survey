@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,7 @@
 </head>
 
 <body style="padding; 0px;">
+<sec:authentication property="principal" var="user" />
 
 <div class="bs-docs-header" id="content" tabindex="-1">
     <div class="container">
@@ -19,71 +21,61 @@
 </div>
 
 <hr>
-<div class="row">
-	<div class="col-md-9" role="main">
-	
-	    <div class="container bs-docs-container">
-			<div class="jumbotron">
-				<form>
-			  		<div class="form-group">
-					  <input type="text" class="survey form-control input-lg" placeholder="설문지 제목">
-					</div>
-					<div class="form-group">
-					  <textarea class="description form-control" rows="3" placeholder="설문지 설명"></textarea>
-					</div>
-				</form>
+<div class="container">
+	<div class="jumbotron">
+		<form>
+			<div class="form-group">
+				<input type="text" class="survey form-control input-lg" placeholder="설문지 제목">
 			</div>
-		</div>
-		
-		<div class="question container">
-			<div class="jumbotron">
-				<form class="row form-group">
-				
-			  		<div class="col-md-9">
-					  <input type="text" name="" class="form-control input-lg" placeholder="질문 제목">
-					</div>
-					
-					<div class="col-md-3">
-						<select name="qKind" class="questionOption form-control input-lg">
-						  <option value="none">===선택===</option>
-						  <option value="shortAns">단답형</option>
-						  <option value="longAns">장문형</option>
-						  <option value="multipleChoice">객관식 질문</option>
-						  <option value="checkBox">체크박스</option>
-						  <option value="dropDown">드롭다운</option>
-						</select>
-					</div>
-				</form>
-				
-				<!-- Items -->
-				<!-- Items -->	
-				
-				<br>
-				<button type="button" class="deleteQuestion btn btn-default col-md-offset-10" qMaster="${sv.sNo}" qIndex="${q.qIndex}">
-					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 질문 삭제
-				</button>
+			<div class="form-group">
+				<textarea class="description form-control" rows="3" placeholder="설문지 설명"></textarea>
 			</div>
-		</div>
-		<!-- question, panel -->
+		</form>
+	</div>			
 		
+	<div class="jumbotron">
+		<form class="row form-group">
+			<div class="col-md-9">
+				<input type="text" name="" class="form-control input-lg" placeholder="질문 제목">
+			</div>
+			<div class="col-md-3">
+				<select name="qKind" class="questionOption form-control input-lg">
+					<option value="none">===선택===</option>
+					<option value="shortAns">단답형</option>
+					<option value="longAns">장문형</option>
+					<option value="multipleChoice">객관식 질문</option>
+					<option value="checkBox">체크박스</option>
+					<option value="dropDown">드롭다운</option>
+				</select>
+			</div>
+		</form>
+				
+		<!-- Items -->
+				
+		<br>
+		<button type="button" class="deleteQuestion btn btn-default col-md-offset-10" qMaster="${sv.sNo}" qIndex="${q.qIndex}">
+			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 질문 삭제
+		</button>
 	</div>
 	
+		
+	<!-- question, panel -->
+			
 	<!-- sidebar -->
      
-</div>
-
-<div>
+	<div>
+		<br>
+		<button type="button" class="addQuestion btn btn-default">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 질문 추가하기
+		</button>
+	</div>
 	<br>
-	<button type="button" class="addQuestion btn btn-default">
-		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 질문 추가하기
-	</button>
+	<div>
+		<button type="button" class="submit btn btn-default">
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 작성하기
+		</button>
+	</div>	
 </div>
-<br>
-<div>
-	<button type="button" class="submit btn btn-default">
-		<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 작성하기
-	</button>
-</div>	
 
 <!------------------------------------------------------------------------->
 
@@ -118,8 +110,8 @@ $(document).on('change', '.questionOption', function () {
 });
 
 $(document).on('click', '.addQuestion', function () {
-	$(this).parent().prev().children().children().last().after
-	("<div class='question container'><div class='jumbotron'><form class='row form-group'><div class='col-md-9'><input type='text' name='' class='form-control input-lg' placeholder='질문 제목'></div><div class='col-md-3'><select name='qKind' class='questionOption form-control input-lg'><option value='none'>===선택===</option><option value='shortAns'>단답형</option><option value='longAns'>장문형</option><option value='multipleChoice'>객관식 질문</option><option value='checkBox'>체크박스</option><option value='dropDown'>드롭다운</option></select></div></form><br><button type='button' class='deleteQuestion btn btn-default col-md-offset-10' qMaster='${sv.sNo}' qIndex='${q.qIndex}'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> 질문 삭제</button></div></div>")
+	$(this).parent().parent().children().last().prev().prev().prev().after
+	("<div class='jumbotron'><form class='row form-group'><div class='col-md-9'><input type='text' name='' class='form-control input-lg' placeholder='질문 제목'></div><div class='col-md-3'><select name='qKind' class='questionOption form-control input-lg'><option value='none'>===선택===</option><option value='shortAns'>단답형</option><option value='longAns'>장문형</option><option value='multipleChoice'>객관식 질문</option><option value='checkBox'>체크박스</option><option value='dropDown'>드롭다운</option></select></div></form><br><button type='button' class='deleteQuestion btn btn-default col-md-offset-10' qMaster='${sv.sNo}' qIndex='${q.qIndex}'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> 질문 삭제</button></div>")
 });
 
 $(document).on('click', '.addItemM', function () {
@@ -132,6 +124,7 @@ $(document).on('click', '.addItemC', function () {
 
 $(document).on('click', '.submit', function () {
 	let survey = {
+			u_idx : ${user.username}
 			title : $(".survey").val(),
 			description : $(".description").val(),
 			questions : []
@@ -179,7 +172,7 @@ $(document).on('click', '.submit', function () {
 });
 
 $(document).on('click', '.deleteQuestion', function () {
-	$(this).parent().parent().remove();
+	$(this).parent().remove();
 });
 
 $(document).on('click', '.deleteItem', function () {		
