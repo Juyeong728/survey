@@ -3,17 +3,17 @@ package com.example.survey.domain;
 import java.util.List;
 
 public class Survey {
-	int u_idx;
+	String u_idx;
 	int s_idx;
 	String title;
 	String description;
 	List<Question> questions;
 
 	
-	public int getU_idx() {
+	public String getU_idx() {
 		return u_idx;
 	}
-	public void setU_idx(int u_idx) {
+	public void setU_idx(String u_idx) {
 		this.u_idx = u_idx;
 	}
 	

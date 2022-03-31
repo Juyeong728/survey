@@ -25,8 +25,8 @@
 	   
 	   
 	   <insert id="insertSurvey">
-	      INSERT INTO survey(title, description) 
-	      VALUES			(#{title}, #{description})
+	      INSERT INTO survey(title, description, u_idx) 
+	      VALUES			(#{title}, #{description}, #{u_idx})
 	      <selectKey keyProperty="s_idx" resultType="Integer">
 		    SELECT LAST_INSERT_ID()
 		  </selectKey>

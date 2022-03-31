@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 </head>
 
-<body style="padding; 0px;">
+<body>
 <sec:authentication property="principal" var="user" />
 
 <div class="bs-docs-header" id="content" tabindex="-1">
@@ -33,10 +33,10 @@
 		</form>
 	</div>			
 		
-	<div class="jumbotron">
+	<div class="question jumbotron">
 		<form class="row form-group">
 			<div class="col-md-9">
-				<input type="text" name="" class="form-control input-lg" placeholder="질문 제목">
+				<input type="text" class="form-control input-lg" placeholder="질문 제목">
 			</div>
 			<div class="col-md-3">
 				<select name="qKind" class="questionOption form-control input-lg">
@@ -57,7 +57,6 @@
 			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 질문 삭제
 		</button>
 	</div>
-	
 		
 	<!-- question, panel -->
 			
@@ -111,7 +110,7 @@ $(document).on('change', '.questionOption', function () {
 
 $(document).on('click', '.addQuestion', function () {
 	$(this).parent().parent().children().last().prev().prev().prev().after
-	("<div class='jumbotron'><form class='row form-group'><div class='col-md-9'><input type='text' name='' class='form-control input-lg' placeholder='질문 제목'></div><div class='col-md-3'><select name='qKind' class='questionOption form-control input-lg'><option value='none'>===선택===</option><option value='shortAns'>단답형</option><option value='longAns'>장문형</option><option value='multipleChoice'>객관식 질문</option><option value='checkBox'>체크박스</option><option value='dropDown'>드롭다운</option></select></div></form><br><button type='button' class='deleteQuestion btn btn-default col-md-offset-10' qMaster='${sv.sNo}' qIndex='${q.qIndex}'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> 질문 삭제</button></div>")
+	("<div class='question jumbotron'><form class='row form-group'><div class='col-md-9'><input type='text' name='' class='form-control input-lg' placeholder='질문 제목'></div><div class='col-md-3'><select name='qKind' class='questionOption form-control input-lg'><option value='none'>===선택===</option><option value='shortAns'>단답형</option><option value='longAns'>장문형</option><option value='multipleChoice'>객관식 질문</option><option value='checkBox'>체크박스</option><option value='dropDown'>드롭다운</option></select></div></form><br><button type='button' class='deleteQuestion btn btn-default col-md-offset-10' qMaster='${sv.sNo}' qIndex='${q.qIndex}'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span> 질문 삭제</button></div>")
 });
 
 $(document).on('click', '.addItemM', function () {
@@ -124,7 +123,7 @@ $(document).on('click', '.addItemC', function () {
 
 $(document).on('click', '.submit', function () {
 	let survey = {
-			u_idx : ${user.username}
+			u_idx : '${user.username}',
 			title : $(".survey").val(),
 			description : $(".description").val(),
 			questions : []
