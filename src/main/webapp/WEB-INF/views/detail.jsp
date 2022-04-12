@@ -12,9 +12,18 @@
 </head>
 
 <style>
-	.color {
-	    back-ground-color: #cdbfe3;
+	body {
+	    background-color: #ede7f6;
 	    }
+	.sv {
+		background-color: white;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		border-top-left-radius: 5px; 
+		border-bottom-left-radius: 5px;
+		border-top-right-radius: 5px; 
+		border-bottom-right-radius: 5px;
+	}
 </style>
 
 <body>
@@ -26,33 +35,34 @@
 	</div>
 
 	<hr>
-	<div class="container theme-showcase" role="main">
-		<div class="jumbotron">
-			<h1>Theme example</h1>
-	        <p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point to create something more unique by building on or modifying it.</p>
+	<div class="sv container" role="main">
+		<div class="col-lg-8">
+			<h1>${survey.title }</h1>
+	        <p>${survey.description }</p>
 		</div>
 		
-		<!--
+		 
 		<c:forEach items="${questions}" var="question" varStatus="status">
+			<p>${question.q_value }</p>
 			<c:choose>
-				<c:when test="${questions.q_type eq 'shortAns'}">
+				<c:when test="${question.q_type eq 'shortAns'}">
 					
 				</c:when>
-				<c:when test="${questions.q_type eq 'longAns'}">
+				<c:when test="${question.q_type eq 'longAns'}">
 					
 				</c:when>
-				<c:when test="${questions.q_type eq 'multipleChoice'}">
+				<c:when test="${question.q_type eq 'multipleChoice'}">
 					
 				</c:when>
-				<c:when test="${questions.q_type eq 'checkBox'}">
+				<c:when test="${question.q_type eq 'checkBox'}">
 					
 				</c:when>
-				<c:when test="${questions.q_type eq 'dropDown'}">
+				<c:when test="${question.q_type eq 'dropDown'}">
 					
 				</c:when>
 			</c:choose> 		
 		</c:forEach>
-		-->
+		
 		
 	</div>
 

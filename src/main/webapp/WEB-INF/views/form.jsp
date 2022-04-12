@@ -102,7 +102,7 @@ $(document).on('change', '.questionOption', function () {
 		$(this).parent().parent().after("<div class='item2 row'><div class='item checkbox disabled'><label class='col-md-8'><input type='checkbox' name='optionsCheckbox' value='option1' disabled><input type='text' class='form-control' placeholder='옵션'></label><button type='button' class='deleteItem btn btn-default'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> 삭제</button></div><!--Added option --></div><button type='button' class='addItemC btn btn-default'><span class='glyphicon glyphicon-th-list' aria-hidden='true'></span> 옵션 추가</button>");
 	} else if($(this).val()  == "dropDown") {
 		$(this).parent().prev().children().prop("placeholder", "질문")
-		$(this).parent().parent().after()
+		$(this).parent().parent().after("<div class='item2 row'><div class='item checkbox disabled'><label class='col-md-8'><input type='checkbox' name='optionsDropdown' value='option1' disabled><input type='text' class='form-control' placeholder='옵션'></label><button type='button' class='deleteItem btn btn-default'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> 삭제</button></div><!--Added option --></div><button type='button' class='addItemC btn btn-default'><span class='glyphicon glyphicon-th-list' aria-hidden='true'></span> 옵션 추가</button>")
 	} else if($(this).val()  == "none") {
 		$(this).parent().prev().children().prop("placeholder", "질문 제목")
 	}
@@ -131,12 +131,12 @@ $(document).on('click', '.submit', function () {
 
 	$(".question").each(function( index ) {
 		let question = {
-				q_value : $(this).children().children().children().first().children().val(),
-				q_type : $(this).children().children().children().first().next().children().val(),
+				q_value : $(this).children().first().children().first().children().val(),
+				q_type : $(this).children().first().children().first().next().children().val(),
 				items : []
 		}
 		
-		let tmp = $(this).children().children().first().next().children().first();
+		let tmp = $(this).children().first().next().children();
 		//item2의 children().first()
 		if(tmp.hasClass("item") == true) {
 			$(".item").each(function( index ) {

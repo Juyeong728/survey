@@ -20,9 +20,11 @@ public interface SurveyMapper {
 	// 게시물 총 갯수 + 검색 적용
 	public int searchCount(Search search);	
 	
-	public List<Question> getQuestions(Survey survey);
-	
 	public int getSurveyCount();
+	
+	public Survey getSurvey(int s_idx);
+	
+	public List<Question> getQuestions(int s_idx);
 	
 	public void insertSurvey(Survey survey);
 	

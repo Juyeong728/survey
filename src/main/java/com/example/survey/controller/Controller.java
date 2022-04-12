@@ -2,6 +2,8 @@ package com.example.survey.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.survey.domain.Search;
 import com.example.survey.domain.User;
-import com.example.survey.domain.Item;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
 import com.example.survey.domain.Survey;
@@ -67,36 +68,33 @@ public class Controller {
 	public String createSurvey(Model model, Principal principal) {
 		user = (User)((Authentication)principal).getPrincipal();
 		
-		return "/form";
+		if(user == null) {
+			return "/login";
+		} else {
+			return "/form";			
+		}
 		
 	}
 	
 	@RequestMapping("/createSurvey/process")
 	public String createSurveyProcess(Model model, @RequestBody Survey survey, Principal principal) {
-		System.out.println(survey.getTitle());
-		System.out.println(survey.getU_idx());
-		List<Question> questions = survey.getQuestions();
-		for(Question q : questions) {
-			System.out.println(q.getQ_type());
-			System.out.println(q.getQ_value());
-			for(Item i : q.getItems()) {
-				System.out.println(i.getI_value());
-			}
-		}
 		surveyservice.insertSurvey(survey);
 		return "/completed";
 	}
 	
 	@RequestMapping("/result")
-	public String showResult(Model model, @RequestBody Survey surveyresult, Principal principal) {
+	public String showResult(Model model, Principal principal) {
 		
 		return "/index";
 	}
 	   
-	@RequestMapping("/joinSurvey")
-	public String joinSurvey() {
-		
-		return "";
+	@RequestMapping("/detail")
+	public String joinSurvey(Model model, Survey survey) {
+		Survey targetSurvey = surveyservice.getSurvey(survey.getS_idx());
+		List<Question> questions = surveyservice.getQuestions(survey.getS_idx());
+		targetSurvey.setQuestions(questions);
+		model.addAttribute("survey", targetSurvey);
+		return "/detail";
 	}
 	   
 }

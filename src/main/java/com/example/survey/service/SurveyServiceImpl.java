@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.survey.domain.Pagination;
+import com.example.survey.domain.Question;
 import com.example.survey.domain.Search;
 import com.example.survey.domain.Survey;
 import com.example.survey.mapper.SurveyMapper;
@@ -33,6 +34,16 @@ public class SurveyServiceImpl implements SurveyService{
 	@Override
 	public int getSurveyCount() {
 		return surveymapper.getSurveyCount();
+	}
+	
+	@Override
+	public Survey getSurvey(int s_idx) {
+		return surveymapper.getSurvey(s_idx);
+	}
+	
+	@Override
+	public List<Question> getQuestions(int s_idx) {
+		return surveymapper.getQuestions(s_idx);
 	}
 	
 	@Override

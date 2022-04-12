@@ -9,7 +9,23 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<style>
+.row {
+	text-align: center;
+}
+.sv {
+	margin-top: 30px;
+	margin-bottom: 10px;
+	height: 350px;
+}
+.pagination {
+	text-align: center;
+}
+
+</style>
 </head>
+
 
 <body>
 
@@ -40,6 +56,8 @@
         </div><!--/.navbar-collapse -->
       </div>
 	</nav>
+
+
 	
 	<div class="container">
 	
@@ -71,62 +89,64 @@
 		       </div>
 		     -->
 	      	<c:forEach items="${list}" var="survey" varStatus="status">
-	      		<div class="col-md-4">
+	      		<div class="sv col-lg-4">
+	      		<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
 		          <h2>${survey.title}</h2>
 		          <p>${survey.description}</p>
-		          <p><a class="btn btn-default" href="#" role="button">Join this survey »</a></p>
+		          <p><a class="btn btn-default" href="detail?s_idx=${survey.s_idx}" role="button">Join this survey »</a></p>
 		        </div>
 	      	</c:forEach>
       	</div>
       	
+	
+	
+<!-- pagination -->	
+		<div class="pagination">
+			<nav>
+				<ul class="pagination pagination-lg">
+					<c:choose>
+						<c:when test="${ pagination.prevPage ge 5}">
+							<li>
+								<a href="list?page=${pagination.prevPage}">◀</a>
+							</li>
+						</c:when>
+					</c:choose> 
+					
+					<c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}" step="1">
+						
+							<c:choose>
+								<c:when test="${ pagination.page eq i }">
+									<li style="background-color:#ededed;">
+										<span>${i}</span>
+									</li>
+								</c:when>
+								<c:when test="${ pagination.page ne i }">
+									<li>
+										<a href="list?page=${i}">${i}</a>
+									</li>
+								</c:when>
+							</c:choose>
+							
+					</c:forEach>
+					
+					<c:choose>
+						<c:when test="${ pagination.nextPage le pagination.lastPage }">
+							<li>
+								<a href="list?page=${pagination.nextPage}">▶</a>
+							</li>
+						</c:when>
+					</c:choose>
+					
+				</ul>
+			</nav>
+		</div>
+	
       	<hr class="featurette-divider">
 
       	<footer>
         	<p>© Company 2022</p>
       	</footer>
-	</div>
-	
-	
-<!-- pagination -->	
-	<div>
-		<ul>
-			<c:choose>
-				<c:when test="${ pagination.prevPage ge 5}">
-					<li>
-						<a href="list?page=${pagination.prevPage}">◀</a>
-					</li>
-				</c:when>
-			</c:choose> 
-			
-			<c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}" step="1">
-				
-					<c:choose>
-						<c:when test="${ pagination.page eq i }">
-							<li style="background-color:#ededed;">
-								<span>${i}</span>
-							</li>
-						</c:when>
-						<c:when test="${ pagination.page ne i }">
-							<li>
-								<a href="list?page=${i}">${i}</a>
-							</li>
-						</c:when>
-					</c:choose>
-					
-			</c:forEach>
-			
-			<c:choose>
-				<c:when test="${ pagination.nextPage le pagination.lastPage }">
-					<li>
-						<a href="list?page=${pagination.nextPage}">▶</a>
-					</li>
-				</c:when>
-			</c:choose>
-			
-		</ul>
-
-	</div>
-	
+	</div>	
 <script>
 	document.getElementById("searchBtn").onclick = function () {
 		  
@@ -136,5 +156,7 @@
 		location.href = "listPageSearch?page=1" + "&searchType=" + searchType + "&keyword=" + keyword;
 	};
 </script>
+
+
 </body>
 </html>
