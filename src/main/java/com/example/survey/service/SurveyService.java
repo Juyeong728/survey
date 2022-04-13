@@ -2,6 +2,7 @@ package com.example.survey.service;
 
 import java.util.List;
 
+import com.example.survey.domain.Item;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
 import com.example.survey.domain.Search;
@@ -20,6 +21,8 @@ public interface SurveyService {
 	public Survey getSurvey(int s_idx);
 	
 	public List<Question> getQuestions(int s_idx);
+	
+	public List<Item> getItems(int q_idx);
 	
 	public void insertSurvey(Survey survey);
 	

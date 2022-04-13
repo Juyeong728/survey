@@ -19,6 +19,11 @@
 	   </select>
 	   
 	   
+	   <select id="getItems" resultType="Item">
+	      SELECT * FROM item WHERE q_idx = #{q_idx}
+	   </select>
+	   
+	   
 	   <select id="getSurveyCount" resultType="int">
 	      SELECT COUNT(*) count	FROM survey
 	   </select>

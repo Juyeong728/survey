@@ -19,9 +19,6 @@
 	margin-bottom: 10px;
 	height: 350px;
 }
-.pagination {
-	text-align: center;
-}
 
 </style>
 </head>
@@ -101,7 +98,7 @@
 	
 	
 <!-- pagination -->	
-		<div class="pagination">
+		<div>
 			<nav>
 				<ul class="pagination pagination-lg">
 					<c:choose>

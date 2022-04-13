@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.survey.domain.Search;
 import com.example.survey.domain.User;
+import com.example.survey.domain.Item;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
 import com.example.survey.domain.Survey;
@@ -93,6 +94,11 @@ public class Controller {
 		Survey targetSurvey = surveyservice.getSurvey(survey.getS_idx());
 		List<Question> questions = surveyservice.getQuestions(survey.getS_idx());
 		targetSurvey.setQuestions(questions);
+		
+		for(Question q : questions) {
+			q.setItems(surveyservice.getItems(q.getQ_idx()));
+		}
+
 		model.addAttribute("survey", targetSurvey);
 		return "/detail";
 	}
