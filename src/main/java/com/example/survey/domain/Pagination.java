@@ -11,7 +11,7 @@ public class Pagination {
 	int prevPage;     // pagination의 이전 목록
 	int nextPage;     // pagination의 다음 목록
 	public static final int pageUnit=5;  // 한번에 불러 올 pagination 수
-	public static final int perPage=5;   // 한번에 불러 올 postCount 수 
+	public static final int perPage=6;   // 한번에 불러 올 postCount 수 
 	
 	
 	public Pagination() {
@@ -27,7 +27,7 @@ public class Pagination {
 		endPage = endPage < lastPage ? endPage : lastPage;
 		prevPage=(startPage-1);
 		nextPage=(startPage+pageUnit);
-		pageNum = (page-1)*5;
+		pageNum = (page-1)*perPage;
 	}
 	
 	

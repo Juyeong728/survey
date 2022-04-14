@@ -5,7 +5,8 @@
 	   <select id="selectSurveyList" resultType="Survey">
 	      SELECT	*	
 	      FROM		survey
-	      LIMIT		${pageNum}, 5
+	      ORDER BY	s_idx DESC
+	      LIMIT		${pageNum}, ${perPage}
 	   </select>
 	   
 	   

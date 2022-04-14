@@ -2,8 +2,6 @@ package com.example.survey.controller;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.survey.domain.Search;
 import com.example.survey.domain.User;
-import com.example.survey.domain.Item;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
 import com.example.survey.domain.Survey;
@@ -67,12 +64,11 @@ public class Controller {
 	
 	@RequestMapping("/createSurvey")
 	public String createSurvey(Model model, Principal principal) {
-		user = (User)((Authentication)principal).getPrincipal();
-		
-		if(user == null) {
-			return "/login";
-		} else {
+		if(principal != null) {
+			user = (User)((Authentication)principal).getPrincipal();
 			return "/form";			
+		} else {
+			return "/login";
 		}
 		
 	}
@@ -90,17 +86,32 @@ public class Controller {
 	}
 	   
 	@RequestMapping("/detail")
-	public String joinSurvey(Model model, Survey survey) {
-		Survey targetSurvey = surveyservice.getSurvey(survey.getS_idx());
-		List<Question> questions = surveyservice.getQuestions(survey.getS_idx());
-		targetSurvey.setQuestions(questions);
-		
-		for(Question q : questions) {
-			q.setItems(surveyservice.getItems(q.getQ_idx()));
+	public String joinSurvey(Model model, Survey survey, Principal principal) {
+		if(principal != null) {
+			user = (User)((Authentication)principal).getPrincipal();
+			Survey targetSurvey = surveyservice.getSurvey(survey.getS_idx());
+			List<Question> questions = surveyservice.getQuestions(survey.getS_idx());
+			targetSurvey.setQuestions(questions);
+			
+			for(Question q : questions) {
+				q.setItems(surveyservice.getItems(q.getQ_idx()));
+			}
+			
+			model.addAttribute("survey", targetSurvey);
+			return "/detail";
+			
+//			if((user.getUsername()).equals(targetSurvey.getU_idx())) {
+//				return "/detail-writer";
+//			} else {
+//				if(이미 참가함) {
+//					return "/already";
+//				} else {
+//					return "/detail";
+//				}
+//			}
+		} else {
+			return "/login";
 		}
-
-		model.addAttribute("survey", targetSurvey);
-		return "/detail";
 	}
 	   
 }

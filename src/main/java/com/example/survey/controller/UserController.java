@@ -71,10 +71,15 @@ public class UserController {
 		return "/login";
 	}
 	
-	@RequestMapping("/loginPro")
-	public String loginProcess(Model model) {
-		return "/index";
+	@RequestMapping("/logout")
+	public String logout() {
+		return "/login";
 	}
+	
+//	@RequestMapping("/loginPro")
+//	public String loginProcess(Model model) {
+//		return "/index";
+//	}
 	
 	@Secured({"ROLE_ADMIN"})
 	@RequestMapping("/admin")

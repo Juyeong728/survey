@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 </style>
 </head>
 
-
+<sec:authentication property="principal" var="user" />
 <body>
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -39,16 +40,16 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right">
-          	<!-- 
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-             -->
-            <a class="btn btn-success" href="/login">Sign in</a>
-            <a class="btn btn-success" href="/beforeSignUp">Sign up »</a>
+          	<div>
+				<sec:authorize access="isAnonymous()">
+					<a class="btn btn-success" href="/login">Sign in</a>
+		            <a class="btn btn-success" href="/beforeSignUp">Sign up »</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<a>${user.u_name} 님 로그인 중입니다. </a>
+					<a class="btn btn-success" href="/logout">Sign out</a>
+				</sec:authorize>
+			</div>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
