@@ -43,6 +43,11 @@ public class SurveyServiceImpl implements SurveyService{
 	}
 	
 	@Override
+	public List<String> getResponses(int s_idx){
+		return surveymapper.getResponses(s_idx);
+	}
+	
+	@Override
 	public List<Question> getQuestions(int s_idx) {
 		return surveymapper.getQuestions(s_idx);
 	}

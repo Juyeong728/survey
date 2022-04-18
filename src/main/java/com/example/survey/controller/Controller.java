@@ -13,6 +13,7 @@ import com.example.survey.domain.Search;
 import com.example.survey.domain.User;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
+import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Survey;
 import com.example.survey.service.SurveyService;
 
@@ -78,15 +79,9 @@ public class Controller {
 		surveyservice.insertSurvey(survey);
 		return "/completed";
 	}
-	
-	@RequestMapping("/result")
-	public String showResult(Model model, Principal principal) {
-		
-		return "/index";
-	}
 	   
 	@RequestMapping("/detail")
-	public String joinSurvey(Model model, Survey survey, Principal principal) {
+	public String showSurvey(Model model, Survey survey, Principal principal) {
 		if(principal != null) {
 			user = (User)((Authentication)principal).getPrincipal();
 			Survey targetSurvey = surveyservice.getSurvey(survey.getS_idx());
@@ -101,17 +96,31 @@ public class Controller {
 			return "/detail";
 			
 //			if((user.getUsername()).equals(targetSurvey.getU_idx())) {
+//				model.addAttribute("survey", targetSurvey);
 //				return "/detail-writer";
 //			} else {
-//				if(이미 참가함) {
-//					return "/already";
+//				List<String> u_names = surveyservice.getResponses(targetSurvey.getS_idx());
+//				int joined=0;
+//				for(String u_name : u_names){
+//					if(user.getU_name().equals(u_name))
+//						joined=1;
+//				}
+//				if(joined==1) {
+//					return "/already_did";
 //				} else {
+//					model.addAttribute("survey", targetSurvey);
 //					return "/detail";
 //				}
 //			}
 		} else {
 			return "/login";
 		}
+	}
+	
+	@RequestMapping("/respond")
+	public String joinSurvey(Model model, @RequestBody Response_user response) {
+		
+		return "";
 	}
 	   
 }

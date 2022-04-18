@@ -64,7 +64,7 @@
 						<c:forEach items="${question.items}" var="item" varStatus="status">
 							<div class="radio">
 								<label>
-									<input type="radio" name="options_${question.q_idx}">
+									<input type="radio" name="options_${question.q_idx}" value="${item.i_idx}">
 	    								${item.i_value}
 	  							</label>
 							</div>
@@ -74,7 +74,7 @@
 						<c:forEach items="${question.items}" var="item" varStatus="status">
 							<div class="checkbox">
 								<label>
-									<input type="checkbox">
+									<input type="checkbox" value="${item.i_idx}">
 	    								${item.i_value}
 	  							</label>
 							</div>
@@ -84,7 +84,7 @@
 						<select class="form-control">
 							<option>Select</option>
 							<c:forEach items="${question.items}" var="item" varStatus="status">
-								<option>${item.i_value}</option>								
+								<option value="${item.i_idx}">${item.i_value}</option>								
 							</c:forEach>
 						</select>
 					</c:when>
@@ -100,7 +100,25 @@
 
 <script>
 $(document).on('click', '.submit', function () {
-	
+	let response = {
+			s_idx : ${survey.s_idx},
+			u_name : '${user.u_name}',
+			r_date : 
+			r_contents : []
+	};
+
+	$(".questions").each(function( index )) {
+		let contents = {
+				s_idx : ${survey.s_idx},
+				q_idx : {},
+				i_idx : {},
+				content : {}
+		}
+
+		let tmp = $(this).children().first().next().next();
+		//q_value의 next
+		
+	}
 });
 </script>	
 
