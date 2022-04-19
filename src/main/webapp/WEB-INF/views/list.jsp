@@ -142,7 +142,7 @@
       	<hr class="featurette-divider">
 
       	<footer>
-        	<p>© Company 2022</p>
+        	<p>© Company 2022 🍊</p>
       	</footer>
 	</div>	
 <script>
