@@ -1,5 +1,6 @@
 package com.example.survey.controller;
 import java.security.Principal;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class Controller {
 	   
 	@RequestMapping("/detail")
 	public String showSurvey(Model model, Survey survey, Principal principal) {
-		if(principal != null) {
+		if(principal != null) {//login된 상태(writer or participant)
 			user = (User)((Authentication)principal).getPrincipal();
 			Survey targetSurvey = surveyservice.getSurvey(survey.getS_idx());
 			List<Question> questions = surveyservice.getQuestions(survey.getS_idx());
@@ -92,35 +93,42 @@ public class Controller {
 				q.setItems(surveyservice.getItems(q.getQ_idx()));
 			}
 			
-			model.addAttribute("survey", targetSurvey);
-			return "/detail";
+			int firstQ = questions.get(0).getQ_idx();
 			
-//			if((user.getUsername()).equals(targetSurvey.getU_idx())) {
-//				model.addAttribute("survey", targetSurvey);
-//				return "/detail-writer";
-//			} else {
-//				List<String> u_names = surveyservice.getResponses(targetSurvey.getS_idx());
-//				int joined=0;
-//				for(String u_name : u_names){
-//					if(user.getU_name().equals(u_name))
-//						joined=1;
-//				}
-//				if(joined==1) {
-//					return "/already_did";
-//				} else {
-//					model.addAttribute("survey", targetSurvey);
-//					return "/detail";
-//				}
-//			}
-		} else {
+			if((user.getUsername()).equals(targetSurvey.getU_idx())) {//writer
+				model.addAttribute("user", user);
+				model.addAttribute("firstQ_idx", firstQ);
+				model.addAttribute("survey", targetSurvey);
+				return "/detail-writer";
+			} else {//participant(already joined or not)
+				List<String> u_names = surveyservice.getParticipants(targetSurvey.getS_idx());
+				int joined=0;
+				for(String u_name : u_names){
+					if(user.getU_name().equals(u_name))
+						joined=1;
+				}
+				if(joined==1) {//already joined
+					return "/already_did";
+				} else {//not
+					model.addAttribute("user", user);
+					model.addAttribute("firstQ_idx", firstQ);
+					model.addAttribute("survey", targetSurvey);
+					return "/detail";
+				}
+			}
+		} else {//login 안 된 상태
 			return "/login";
 		}
 	}
 	
 	@RequestMapping("/respond")
 	public String joinSurvey(Model model, @RequestBody Response_user response) {
-		
-		return "";
+		long miliseconds = System.currentTimeMillis();
+	    Date date = new Date(miliseconds);
+	    response.setR_date(date);
+	    
+	    surveyservice.insertResponse(response);
+		return "/list";
 	}
 	   
 }

@@ -30,7 +30,7 @@
 	   </select>
 	   
 	   
-	   <select id="getResponses">
+	   <select id="getParticipants" resultType="String">
 	   		SELECT ru.u_name FROM response_user ru WHERE s_idx = #{s_idx}
 	   </select>
 	   
@@ -74,6 +74,25 @@
 	 	  </foreach>
 	   </insert>
 	   
+	   
+	   <insert id="insertResp_user">
+		  INSERT INTO response_user(s_idx, u_name, r_date)
+		  VALUES(#{s_idx}, #{u_name}, #{r_date})
+		  <selectKey keyProperty="r_idx" resultType="Integer">
+		    SELECT LAST_INSERT_ID()
+		  </selectKey>
+	   </insert>
+	   
+	   
+	   <insert id="insertResp_content">
+		  INSERT INTO response_content(r_idx, s_idx, q_idx, i_idx, content)
+		  VALUES
+		  <foreach collection="r_contents" item="r_content" separator=",">
+		  	<foreach collection="r_content.resp_items" item="resp_item" separator=",">
+		  		(#{r_idx}, #{s_idx}, #{r_content.q_idx}, #{resp_item.i_idx}, #{resp_item.content})
+		  	</foreach>
+		  </foreach>
+	   </insert>
 	
 	   
 </mapper>

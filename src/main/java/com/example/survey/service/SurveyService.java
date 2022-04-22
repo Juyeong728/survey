@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.survey.domain.Item;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
+import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Search;
 import com.example.survey.domain.Survey;
 
@@ -24,9 +25,11 @@ public interface SurveyService {
 	
 	public List<Item> getItems(int q_idx);
 	
-	public List<String> getResponses(int s_idx);
+	public List<String> getParticipants(int s_idx);
 	
 	public void insertSurvey(Survey survey);
+	
+	public void insertResponse(Response_user resp_user);
 	
 	
 }

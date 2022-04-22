@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.survey.domain.Item;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
+import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Search;
 import com.example.survey.domain.Survey;
 import com.example.survey.mapper.SurveyMapper;
@@ -43,8 +44,8 @@ public class SurveyServiceImpl implements SurveyService{
 	}
 	
 	@Override
-	public List<String> getResponses(int s_idx){
-		return surveymapper.getResponses(s_idx);
+	public List<String> getParticipants(int s_idx){
+		return surveymapper.getParticipants(s_idx);
 	}
 	
 	@Override
@@ -62,6 +63,12 @@ public class SurveyServiceImpl implements SurveyService{
 		surveymapper.insertSurvey(survey);
 		surveymapper.insertQuestion(survey);
 		surveymapper.insertItem(survey);
+	}
+	
+	@Override
+	public void insertResponse(Response_user resp_user) {
+		surveymapper.insertResp_user(resp_user);
+		surveymapper.insertResp_content(resp_user);
 	}
 	
 }

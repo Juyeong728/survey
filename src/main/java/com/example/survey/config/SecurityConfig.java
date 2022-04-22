@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .formLogin()
             .loginPage("/login")
             .loginProcessingUrl("/loginPro")
-            .defaultSuccessUrl("/", true)
+            .defaultSuccessUrl("/list", true)
             .permitAll()
             .and()
 //      로그아웃 설정

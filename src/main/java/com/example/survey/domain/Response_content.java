@@ -1,10 +1,11 @@
 package com.example.survey.domain;
 
+import java.util.List;
+
 public class Response_content {
 	int s_idx;
 	int q_idx;
-	int i_idx;
-	String content;
+	List<Response_item> resp_items;
 	
 	
 	public int getS_idx() {
@@ -21,18 +22,11 @@ public class Response_content {
 		this.q_idx = q_idx;
 	}
 	
-	public int getI_idx() {
-		return i_idx;
+	public List<Response_item> getResp_items() {
+		return resp_items;
 	}
-	public void setI_idx(int i_idx) {
-		this.i_idx = i_idx;
-	}
-	
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setResp_items(List<Response_item> resp_items) {
+		this.resp_items = resp_items;
 	}
 	
 }
