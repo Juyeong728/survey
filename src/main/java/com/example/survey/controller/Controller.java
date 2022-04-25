@@ -14,6 +14,7 @@ import com.example.survey.domain.Search;
 import com.example.survey.domain.User;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
+import com.example.survey.domain.Response_content;
 import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Survey;
 import com.example.survey.service.SurveyService;
@@ -55,13 +56,13 @@ public class Controller {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pagination", pagination);
-		return "listSearch";
+		return "/listSearch";
 	}
 	
 	@RequestMapping("/mySurveyList")
 	public String showMySurveys() {
 		
-		return "";
+		return "/statistics";
 	}
 	
 	@RequestMapping("/createSurvey")
@@ -128,7 +129,21 @@ public class Controller {
 	    response.setR_date(date);
 	    
 	    surveyservice.insertResponse(response);
-		return "/list";
+		return "/completed";
+	}
+	
+	@RequestMapping("/complete")
+	public String complete() {
+		return "/completed";
+	}
+	
+	@RequestMapping("/result-chart")
+	public String showChart(Model model, Survey survey) {
+		List<Response_content> items = surveyservice.getResp_contents(survey.getS_idx());
+		
+		model.addAttribute("items", items);
+		model.addAttribute("survey", survey);
+		return "/statistics";
 	}
 	   
 }

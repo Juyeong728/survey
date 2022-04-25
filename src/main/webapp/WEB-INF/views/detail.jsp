@@ -177,7 +177,7 @@ $(document).on('click', '.submit', function () {
 		data: response_result,
 		contentType: "application/json",
 		success: function(data) {
-			let url = "/";
+			let url = "/complete";
 			location.replace(url);
 		}
 	})
