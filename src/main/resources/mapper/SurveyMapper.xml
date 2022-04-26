@@ -36,7 +36,17 @@
 	   
 	   
 	   <select id="getResp_contents" resultType="Response_content">
-	      SELECT * FROM response_content WHERE s_idx = #{s_idx}
+	      SELECT 	rc.s_idx, rc.q_idx 
+	      FROM 		response_content rc 
+	      WHERE 	s_idx = #{s_idx}
+	      GROUP BY 	rc.q_idx
+	   </select>
+	   
+	   
+	   <select id="getResp_items" resultType="Response_item">
+	      SELECT 	rc.i_idx, rc.content 
+	      FROM 		response_content rc 
+	      WHERE 	q_idx = #{q_idx}
 	   </select>
 	   
 	   

@@ -40,8 +40,16 @@
 	        <h1>My survey</h1>
 	  	</div>
 	</div>
-
 	<hr>
+	
+	<div id="content" class="container">
+		<nav>
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#">Questions</a></li>
+				<li class="reply"><a href="result-chart">Replies</a></li>
+			</ul>
+		</nav>
+		
 	<div class="sv container" role="main">
 		<div class="col-lg-12">
 			<h1>${survey.title }</h1>
@@ -100,10 +108,20 @@
 		<a class="list btn btn-primary" type="button" href="list">Back to the list</a>
 
 	</div>
-	
+	</div>
 
 <script>
+$(document).on('click', '.reply', function () {
 
+	$.ajax({
+		  method: "POST",
+		  url: "/reply-chart",
+		  data: { s_idx: ${survey.s_idx}  }
+		})
+		.done(function( msg ) {
+			$('#content').html(msg);
+		});
+})
 </script>	
 
 </body>

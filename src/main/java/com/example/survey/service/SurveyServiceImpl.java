@@ -9,6 +9,7 @@ import com.example.survey.domain.Item;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
 import com.example.survey.domain.Response_content;
+import com.example.survey.domain.Response_item;
 import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Search;
 import com.example.survey.domain.Survey;
@@ -62,6 +63,11 @@ public class SurveyServiceImpl implements SurveyService{
 	@Override
 	public List<Response_content> getResp_contents(int s_idx) {
 		return surveymapper.getResp_contents(s_idx);
+	}
+	
+	@Override
+	public List<Response_item> getResp_items(int q_idx) {
+		return surveymapper.getResp_items(q_idx);
 	}
 	
 	@Override

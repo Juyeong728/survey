@@ -9,6 +9,7 @@ import com.example.survey.domain.Item;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
 import com.example.survey.domain.Response_content;
+import com.example.survey.domain.Response_item;
 import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Survey;
 
@@ -34,6 +35,8 @@ public interface SurveyMapper {
 	public List<String> getParticipants(int s_idx);
 	
 	public List<Response_content> getResp_contents(int s_idx);
+	
+	public List<Response_item> getResp_items(int q_idx);
 	
 	public void insertSurvey(Survey survey);
 	

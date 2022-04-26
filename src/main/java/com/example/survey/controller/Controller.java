@@ -137,12 +137,23 @@ public class Controller {
 		return "/completed";
 	}
 	
-	@RequestMapping("/result-chart")
-	public String showChart(Model model, Survey survey) {
-		List<Response_content> items = surveyservice.getResp_contents(survey.getS_idx());
+	@RequestMapping("/reply-chart")
+	public String showChart(Model model) {
+		Survey targetSurvey = surveyservice.getSurvey(2);
+		List<Question> questions = surveyservice.getQuestions(2);
+		targetSurvey.setQuestions(questions);
 		
-		model.addAttribute("items", items);
-		model.addAttribute("survey", survey);
+		for(Question q : questions) {
+			q.setItems(surveyservice.getItems(q.getQ_idx()));
+		}
+		
+		List<Response_content> replies = surveyservice.getResp_contents(2);
+		for(Response_content rc : replies) {
+			rc.setResp_items(surveyservice.getResp_items(rc.getQ_idx()));
+		}
+		
+		model.addAttribute("replies", replies);
+		model.addAttribute("survey", targetSurvey);
 		return "/statistics";
 	}
 	   
