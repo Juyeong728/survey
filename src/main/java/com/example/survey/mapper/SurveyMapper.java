@@ -26,6 +26,8 @@ public interface SurveyMapper {
 	
 	public int getSurveyCount();
 	
+	public int getItemCount(int i_idx);
+	
 	public Survey getSurvey(int s_idx);
 	
 	public List<Question> getQuestions(int s_idx);

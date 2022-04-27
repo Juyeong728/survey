@@ -30,6 +30,11 @@
 	   </select>
 	   
 	   
+	   <select id="getItemCount" resultType="int">
+	      SELECT COUNT(*) count	FROM survey WHERE i_idx = #{i_idx}
+	   </select>
+	   
+	   
 	   <select id="getParticipants" resultType="String">
 	   		SELECT ru.u_name FROM response_user ru WHERE s_idx = #{s_idx}
 	   </select>

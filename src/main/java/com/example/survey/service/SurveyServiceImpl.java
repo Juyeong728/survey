@@ -41,6 +41,11 @@ public class SurveyServiceImpl implements SurveyService{
 	}
 	
 	@Override
+	public int getItemCount(int i_idx) {
+		return surveymapper.getItemCount(i_idx);
+	}
+	
+	@Override
 	public Survey getSurvey(int s_idx) {
 		return surveymapper.getSurvey(s_idx);
 	}

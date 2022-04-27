@@ -15,6 +15,7 @@ import com.example.survey.domain.User;
 import com.example.survey.domain.Pagination;
 import com.example.survey.domain.Question;
 import com.example.survey.domain.Response_content;
+import com.example.survey.domain.Response_item;
 import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Survey;
 import com.example.survey.service.SurveyService;
@@ -24,6 +25,7 @@ public class Controller {
 	
 	@Autowired SurveyService surveyservice;
 	User user = null;
+	private List<String> replyList;
    
 	@RequestMapping("/list")
 	public String surveyList(Model model
@@ -150,6 +152,21 @@ public class Controller {
 		List<Response_content> replies = surveyservice.getResp_contents(2);
 		for(Response_content rc : replies) {
 			rc.setResp_items(surveyservice.getResp_items(rc.getQ_idx()));
+		}
+		
+		replyList = null;
+		for(Response_content rc : replies) {
+			String result = null;
+			for(Response_item item : rc.getResp_items()) {
+				int cnt = surveyservice.getItemCount(item.getI_idx());
+				result += "['"+"string"+"', "+cnt+"]";
+//				if(item.getI_idx() != 0) {//multi or checkbox or dropdown
+//					
+//				} else {//shortAns or longAns
+//					
+//				}
+			}
+			replyList.add(result);
 		}
 		
 		model.addAttribute("replies", replies);
