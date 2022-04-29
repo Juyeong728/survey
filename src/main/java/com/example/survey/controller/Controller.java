@@ -1,6 +1,7 @@
 package com.example.survey.controller;
 import java.security.Principal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ public class Controller {
 	
 	@Autowired SurveyService surveyservice;
 	User user = null;
-	private List<String> replyList;
    
 	@RequestMapping("/list")
 	public String surveyList(Model model
@@ -141,6 +141,7 @@ public class Controller {
 	
 	@RequestMapping("/reply-chart")
 	public String showChart(Model model) {
+		List<String> replyCntList = new ArrayList<String>();
 		Survey targetSurvey = surveyservice.getSurvey(2);
 		List<Question> questions = surveyservice.getQuestions(2);
 		targetSurvey.setQuestions(questions);
@@ -148,27 +149,31 @@ public class Controller {
 		for(Question q : questions) {
 			q.setItems(surveyservice.getItems(q.getQ_idx()));
 		}
-		
+
 		List<Response_content> replies = surveyservice.getResp_contents(2);
-		for(Response_content rc : replies) {
-			rc.setResp_items(surveyservice.getResp_items(rc.getQ_idx()));
+		for(Response_content rc : replies) {//shortAns or longAns
+			rc.setResp_items(surveyservice.getResp_items_wo_group(rc.getQ_idx()));
 		}
 		
-		replyList = null;
-		for(Response_content rc : replies) {
-			String result = null;
+		List<Response_content> replies2 = surveyservice.getResp_contents(2);
+		for(Response_content rc : replies2) {
+			String result = "";
+			rc.setResp_items(surveyservice.getResp_items(rc.getQ_idx()));
 			for(Response_item item : rc.getResp_items()) {
-				int cnt = surveyservice.getItemCount(item.getI_idx());
-				result += "['"+"string"+"', "+cnt+"]";
 //				if(item.getI_idx() != 0) {//multi or checkbox or dropdown
-//					
-//				} else {//shortAns or longAns
-//					
+					int cnt = surveyservice.getItemCount(item.getI_idx());
+					result += "['"+item.getI_value()+"', "+cnt+"],";
 //				}
 			}
-			replyList.add(result);
+			if(!result.equals("")) {
+				result = result.replaceAll(",$", "");
+				replyCntList.add(result);
+				result = "";
+			}
 		}
-		
+		System.out.println(replyCntList);
+
+		model.addAttribute("replyCntList", replyCntList);
 		model.addAttribute("replies", replies);
 		model.addAttribute("survey", targetSurvey);
 		return "/statistics";

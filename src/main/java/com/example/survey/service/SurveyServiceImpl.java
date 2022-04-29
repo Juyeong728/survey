@@ -76,6 +76,11 @@ public class SurveyServiceImpl implements SurveyService{
 	}
 	
 	@Override
+	public List<Response_item> getResp_items_wo_group(int q_idx) {
+		return surveymapper.getResp_items_wo_group(q_idx);
+	}
+	
+	@Override
 	public void insertSurvey(Survey survey) {
 		surveymapper.insertSurvey(survey);
 		surveymapper.insertQuestion(survey);

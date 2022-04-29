@@ -31,7 +31,7 @@
 	   
 	   
 	   <select id="getItemCount" resultType="int">
-	      SELECT COUNT(*) count	FROM survey WHERE i_idx = #{i_idx}
+	      SELECT COUNT(*) count	FROM response_content WHERE i_idx = #{i_idx}
 	   </select>
 	   
 	   
@@ -49,9 +49,19 @@
 	   
 	   
 	   <select id="getResp_items" resultType="Response_item">
-	      SELECT 	rc.i_idx, rc.content 
+	      SELECT 	rc.i_idx, it.i_value, rc.content
 	      FROM 		response_content rc 
-	      WHERE 	q_idx = #{q_idx}
+	      LEFT JOIN	item it ON rc.i_idx = it.i_idx
+	      WHERE 	rc.q_idx = #{q_idx}
+	      GROUP BY	rc.i_idx
+	   </select>
+	   
+	   
+	   <select id="getResp_items_wo_group" resultType="Response_item">
+	      SELECT 	rc.i_idx, it.i_value, rc.content
+	      FROM 		response_content rc 
+	      LEFT JOIN	item it ON rc.i_idx = it.i_idx
+	      WHERE 	rc.q_idx = #{q_idx}
 	   </select>
 	   
 	   

@@ -35,6 +35,8 @@ public interface SurveyService {
 	
 	public List<Response_item> getResp_items(int q_idx);
 	
+	public List<Response_item> getResp_items_wo_group(int q_idx);
+	
 	public void insertSurvey(Survey survey);
 	
 	public void insertResponse(Response_user resp_user);

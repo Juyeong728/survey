@@ -40,6 +40,8 @@ public interface SurveyMapper {
 	
 	public List<Response_item> getResp_items(int q_idx);
 	
+	public List<Response_item> getResp_items_wo_group(int q_idx);
+	
 	public void insertSurvey(Survey survey);
 	
 	public void insertQuestion(Survey survey);

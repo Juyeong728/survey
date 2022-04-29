@@ -54,7 +54,7 @@
 			</div>
 		
 				 
-		<c:forEach items="${survey.questions}" var="question" varStatus="status">
+		<c:forEach items="${survey.questions}" var="question" varStatus="qstatus">
 			<div class="question col-lg-12">
 				<hr>
 				<p>${question.q_value }</p>
@@ -76,7 +76,15 @@
 					
 					<c:when test="${question.q_type eq 'longAns'}">
 						<div class="item longAns">
-							<textarea class="string form-control" disabled></textarea>
+							<c:forEach items="${replies }" var="reply" varStatus="status">
+								<c:choose>
+								<c:when test="${question.q_idx eq reply.q_idx}">
+									<c:forEach items="${reply.resp_items}" var="resp_item" varStatus="status">
+										<textarea class="string form-control" placeholder="${resp_item.content }" disabled></textarea>		
+									</c:forEach>				
+								</c:when>
+								</c:choose>
+							</c:forEach>
 						</div>
 					</c:when>
 					
@@ -89,7 +97,7 @@
 	  							</label>
 							</div>
 						</c:forEach>
-						<div class="piechart" style="width: 720px; height: 500px;"></div>
+						<div id="piechart${qstatus.index}" style="width: 720px; height: 500px;"></div>
 					</c:when>
 					
 					<c:when test="${question.q_type eq 'checkBox'}">
@@ -101,6 +109,7 @@
 	  							</label>
 							</div>
 						</c:forEach>
+						<div id="barchart_values${qstatus.index}" style="width: 720px; height: 500px;"></div>				
 					</c:when>
 					
 					<c:when test="${question.q_type eq 'dropDown'}">
@@ -110,6 +119,7 @@
 								<option class="dropdown" value="${item.i_idx}" disabled>${item.i_value}</option>								
 							</c:forEach>
 						</select>
+						<div id="piechart${qstatus.index}" style="width: 720px; height: 500px;"></div>
 					</c:when>
 					
 				</c:choose> 
@@ -117,66 +127,55 @@
 		</c:forEach>
 		
 			<div class="col-lg-12">
-				<!-- 크기 container에 맞추기 -->
-				<div class="piechart" style="width: 720px; height: 500px;"></div>	
-				<div id="chart_div" style="width: 720px; height: 500px;"></div>				
+				<!-- 크기 container에 맞추기 -->		
 			</div>
 		</div>
 	</div>
+
+<c:forEach items="" varStatus="status">
+
+</c:forEach>
 
 <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['', ''],
+          ${replyCntList[1]}
         ]);
 
         var options = {
-          title: 'My Daily Activities'
+          title: ''
         };
 
-        var chart = new google.visualization.PieChart(document.getElementsByClassName('piechart')[0]);
+        var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
 
         chart.draw(data, options);
       }
+</script>
 
-      
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-      google.charts.setOnLoadCallback(drawBarColors);
+ <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart(index) {
+        var data = google.visualization.arrayToDataTable([
+          ["", ""],
+          ${replyCntList[2]}
+        ]);
 
-      function drawBarColors() {
-            var data = google.visualization.arrayToDataTable([
-              ['City', '2010 Population', '2000 Population'],
-              ['New York City, NY', 8175000, 8008000],
-              ['Los Angeles, CA', 3792000, 3694000],
-              ['Chicago, IL', 2695000, 2896000],
-              ['Houston, TX', 2099000, 1953000],
-              ['Philadelphia, PA', 1526000, 1517000]
-            ]);
+        var view = new google.visualization.DataView(data);
 
-            var options = {
-              title: 'Population of Largest U.S. Cities',
-              chartArea: {width: '50%'},
-              colors: ['#b0120a', '#ffab91'],
-              hAxis: {
-                title: 'Total Population',
-                minValue: 0
-              },
-              vAxis: {
-                title: 'City'
-              }
-            };
-            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-          }
+        var options = {
+          width: 600,
+          height: 400,
+          bar: {groupWidth: "50%"},
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.BarChart(document.getElementById("barchart_values2"));
+        chart.draw(view, options);
+    }
 </script>
 
 </body>
