@@ -46,7 +46,7 @@
 		<nav>
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#">Questions</a></li>
-				<li class="reply"><a href="result-chart?s_idx=${survey.s_idx}">Replies</a></li>
+				<li class="reply"><a href="reply-chart?s_idx=${survey.s_idx}">Replies</a></li>
 			</ul>
 		</nav>
 		

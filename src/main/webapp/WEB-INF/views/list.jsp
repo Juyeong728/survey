@@ -97,9 +97,8 @@
       	</div>
 	
 	
-<!-- pagination -->	
-		<div>
-			<nav>
+	<!-- pagination -->	
+			<nav class="row">
 				<ul class="pagination pagination-lg">
 					<c:choose>
 						<c:when test="${ pagination.prevPage ge 5}">
@@ -136,8 +135,7 @@
 					
 				</ul>
 			</nav>
-		</div>
-<!------------------------------->		
+	<!------------------------------->		
 
       	<hr class="featurette-divider">
       
@@ -168,7 +166,8 @@
       	<footer>
         	<p>© Company 2022 🍊</p>
       	</footer>
-	</div>	
+	</div>
+		
 <script>
 	document.getElementById("searchBtn").onclick = function ( {
 		  

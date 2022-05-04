@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Reply Chart</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -26,6 +26,7 @@
 		border-bottom-right-radius: 5px;
 	}
 	.list {
+		margin-left: 16px;
 		margin-top: 20px;
 	}
 </style>
@@ -41,7 +42,7 @@
 	<div class="container">
 		<nav>
 			<ul class="ch nav nav-tabs">
-				<li class=""><a href="">Questions</a></li>
+				<li class=""><a href="detail?s_idx=${survey.s_idx}">Questions</a></li>
 				<li class="active"><a href="#">Replies</a></li>
 			</ul>
 		</nav>
@@ -109,7 +110,7 @@
 	  							</label>
 							</div>
 						</c:forEach>
-						<div id="barchart_values${qstatus.index}" style="width: 720px; height: 500px;"></div>				
+						<div id="piechart${qstatus.index}" style="width: 720px; height: 500px;"></div>				
 					</c:when>
 					
 					<c:when test="${question.q_type eq 'dropDown'}">
@@ -125,41 +126,39 @@
 				</c:choose> 
 			</div>		
 		</c:forEach>
-		
-			<div class="col-lg-12">
-				<!-- 크기 container에 맞추기 -->		
-			</div>
+		<a class="list btn btn-primary" type="button" href="list">Back to the list</a>
 		</div>
 	</div>
 
-<c:forEach items="" varStatus="status">
-
-</c:forEach>
 
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['', ''],
-          ${replyCntList[1]}
-        ]);
-
-        var options = {
-          title: ''
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
-
-        chart.draw(data, options);
-      }
+	const replyCntList = ${replyCntList};
+	let index = 0;
+	for (const reply of replyCntList) {
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+		  var data = google.visualization.arrayToDataTable(
+		    replyCntList[index]
+		  );
+		
+		  var options = {
+		    title: ''
+		  };
+		
+		  var chart = new google.visualization.PieChart(document.getElementById('piechart'+index));
+		  chart.draw(data, options);
+		  console.log(index);
+		  index++;
+		}
+	}
 </script>
+
 
  <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
-      function drawChart(index) {
+      function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ["", ""],
           ${replyCntList[2]}
@@ -173,10 +172,11 @@
           bar: {groupWidth: "50%"},
           legend: { position: "none" },
         };
-        var chart = new google.visualization.BarChart(document.getElementById("barchart_values2"));
+        var chart = new google.visualization.BarChart(document.getElementById("barchart2"));
         chart.draw(view, options);
     }
 </script>
 
+ 
 </body>
 </html>

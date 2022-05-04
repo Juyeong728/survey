@@ -140,35 +140,35 @@ public class Controller {
 	}
 	
 	@RequestMapping("/reply-chart")
-	public String showChart(Model model) {
+	public String showChart(Model model, Survey survey) {
 		List<String> replyCntList = new ArrayList<String>();
-		Survey targetSurvey = surveyservice.getSurvey(2);
-		List<Question> questions = surveyservice.getQuestions(2);
+		Survey targetSurvey = surveyservice.getSurvey(survey.getS_idx());
+		List<Question> questions = surveyservice.getQuestions(survey.getS_idx());
 		targetSurvey.setQuestions(questions);
 		
 		for(Question q : questions) {
 			q.setItems(surveyservice.getItems(q.getQ_idx()));
 		}
 
-		List<Response_content> replies = surveyservice.getResp_contents(2);
+		List<Response_content> replies = surveyservice.getResp_contents(survey.getS_idx());
 		for(Response_content rc : replies) {//shortAns or longAns
 			rc.setResp_items(surveyservice.getResp_items_wo_group(rc.getQ_idx()));
 		}
 		
-		List<Response_content> replies2 = surveyservice.getResp_contents(2);
+		List<Response_content> replies2 = surveyservice.getResp_contents(survey.getS_idx());
 		for(Response_content rc : replies2) {
-			String result = "";
+			String result = "[['',''],";
 			rc.setResp_items(surveyservice.getResp_items(rc.getQ_idx()));
 			for(Response_item item : rc.getResp_items()) {
-//				if(item.getI_idx() != 0) {//multi or checkbox or dropdown
+				if(item.getI_idx() != 0) {
 					int cnt = surveyservice.getItemCount(item.getI_idx());
 					result += "['"+item.getI_value()+"', "+cnt+"],";
-//				}
+				}
 			}
-			if(!result.equals("")) {
-				result = result.replaceAll(",$", "");
+			result = result.replaceAll(",$", "");
+			result += "]";
+			if(!result.equals("[['','']]")) {
 				replyCntList.add(result);
-				result = "";
 			}
 		}
 		System.out.println(replyCntList);
