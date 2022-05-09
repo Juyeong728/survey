@@ -104,7 +104,7 @@ public class Controller {
 				model.addAttribute("survey", targetSurvey);
 				return "/detail-writer";
 			} else {//participant(already joined or not)
-				List<String> u_names = surveyservice.getParticipants(targetSurvey.getS_idx());
+				List<String> u_names = surveyservice.getRespondents(targetSurvey.getS_idx());
 				int joined=0;
 				for(String u_name : u_names){
 					if(user.getU_name().equals(u_name))
@@ -167,15 +167,16 @@ public class Controller {
 			}
 			result = result.replaceAll(",$", "");
 			result += "]";
-			if(!result.equals("[['','']]")) {
+//			if(!result.equals("[['','']]")) {
 				replyCntList.add(result);
-			}
+//			}
 		}
 		System.out.println(replyCntList);
 
 		model.addAttribute("replyCntList", replyCntList);
 		model.addAttribute("replies", replies);
 		model.addAttribute("survey", targetSurvey);
+		model.addAttribute("respondentsCnt", surveyservice.getRespondentsCount(targetSurvey.getS_idx()));
 		return "/statistics";
 	}
 	   

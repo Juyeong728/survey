@@ -35,8 +35,13 @@
 	   </select>
 	   
 	   
-	   <select id="getParticipants" resultType="String">
+	   <select id="getRespondents" resultType="String">
 	   		SELECT ru.u_name FROM response_user ru WHERE s_idx = #{s_idx}
+	   </select>
+	   
+	   
+	   <select id="getRespondentsCount" resultType="int">
+	   		SELECT COUNT(*) FROM response_user WHERE s_idx = #{s_idx}
 	   </select>
 	   
 	   

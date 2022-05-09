@@ -34,7 +34,9 @@ public interface SurveyMapper {
 	
 	public List<Item> getItems(int q_idx);
 	
-	public List<String> getParticipants(int s_idx);
+	public List<String> getRespondents(int s_idx);
+	
+	public int getRespondentsCount(int s_idx);
 	
 	public List<Response_content> getResp_contents(int s_idx);
 	

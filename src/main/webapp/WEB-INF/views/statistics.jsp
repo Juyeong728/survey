@@ -32,7 +32,7 @@
 </style>
 
 <body>
-	<div class="bs-docs-header" id="content" tabindex="-1">
+	<div class="bs-docs-header">
 	    <div class="container">
 	        <h1>My survey</h1>
 	  	</div>
@@ -52,6 +52,7 @@
 			<div class="col-lg-12">
 				<h1>${survey.title }</h1>
 		        <p>: ${survey.description }</p>
+		        <p>[ Number of respondents: ${respondentsCnt } ]</p>
 			</div>
 		
 				 
@@ -72,6 +73,7 @@
 								</c:when>
 								</c:choose>
 							</c:forEach>
+							<div hidden="hidden" id="piechart${qstatus.index}"></div>
 						</div>
 					</c:when>
 					
@@ -86,6 +88,7 @@
 								</c:when>
 								</c:choose>
 							</c:forEach>
+							<div hidden="hidden" id="piechart${qstatus.index}"></div>
 						</div>
 					</c:when>
 					
@@ -148,33 +151,9 @@
 		
 		  var chart = new google.visualization.PieChart(document.getElementById('piechart'+index));
 		  chart.draw(data, options);
-		  console.log(index);
 		  index++;
 		}
 	}
-</script>
-
-
- <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ["", ""],
-          ${replyCntList[2]}
-        ]);
-
-        var view = new google.visualization.DataView(data);
-
-        var options = {
-          width: 600,
-          height: 400,
-          bar: {groupWidth: "50%"},
-          legend: { position: "none" },
-        };
-        var chart = new google.visualization.BarChart(document.getElementById("barchart2"));
-        chart.draw(view, options);
-    }
 </script>
 
  

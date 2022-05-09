@@ -46,6 +46,11 @@ public class SurveyServiceImpl implements SurveyService{
 	}
 	
 	@Override
+	public int getRespondentsCount(int s_idx) {
+		return surveymapper.getRespondentsCount(s_idx);
+	}
+	
+	@Override
 	public Survey getSurvey(int s_idx) {
 		return surveymapper.getSurvey(s_idx);
 	}
@@ -61,8 +66,8 @@ public class SurveyServiceImpl implements SurveyService{
 	}
 	
 	@Override
-	public List<String> getParticipants(int s_idx){
-		return surveymapper.getParticipants(s_idx);
+	public List<String> getRespondents(int s_idx){
+		return surveymapper.getRespondents(s_idx);
 	}
 	
 	@Override
