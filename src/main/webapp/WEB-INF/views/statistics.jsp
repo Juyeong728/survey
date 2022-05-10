@@ -52,7 +52,7 @@
 			<div class="col-lg-12">
 				<h1>${survey.title }</h1>
 		        <p>: ${survey.description }</p>
-		        <p>[ Number of respondents: ${respondentsCnt } ]</p>
+		        <p>[ ${respondentsCnt } responses ]</p>
 			</div>
 		
 				 

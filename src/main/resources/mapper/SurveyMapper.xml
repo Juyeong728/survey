@@ -10,6 +10,15 @@
 	   </select>
 	   
 	   
+	   <select id="selectMySurveyList" resultType="Survey">
+	      SELECT	*	
+	      FROM		survey
+	      WHERE 	u_idx = #{user.username}
+	      ORDER BY	s_idx DESC
+	      LIMIT		${pagination.pageNum}, ${pagination.perPage}
+	   </select>
+	   
+	   
 	   <select id="getSurvey" resultType="Survey">
 	      SELECT *	FROM survey	WHERE s_idx = #{s_idx}
 	   </select>

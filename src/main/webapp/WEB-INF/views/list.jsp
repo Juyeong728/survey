@@ -64,7 +64,7 @@
 	        <nav>
 	          <ul class="nav nav-justified">
 	            <li><a href="#">Home</a></li>
-	            <li class="active"><a href="#" class="showMySurveys">Projects</a></li>
+	            <li><a href="mySurveyList?u_idx=${user.u_name}">My surveys</a></li>
 	            <li><a href="#">Services</a></li>
 	            <li><a href="#">About</a></li>
 	            <li><a href="#">Contact</a></li>
@@ -171,8 +171,8 @@
 <script>
 	document.getElementById("searchBtn").onclick = function ( {
 		  
-		let searchType = document.getElementsByName("searchType")[0].val();
-		let keyword =  document.getElementsByName("keyword")[0].value;
+		let searchType = document.getElementsByName("searchType").val();
+		let keyword =  document.getElementsByName("keyword").value;
 		
 		location.href = "listPageSearch?page=1" + "&searchType=" + searchType + "&keyword=" + keyword;
 	});
