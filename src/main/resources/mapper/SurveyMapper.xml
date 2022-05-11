@@ -8,15 +8,53 @@
 	      ORDER BY	s_idx DESC
 	      LIMIT		${pageNum}, ${perPage}
 	   </select>
-	   
-	   
-	   <select id="selectMySurveyList" resultType="Survey">
-	      SELECT	*	
-	      FROM		survey
-	      WHERE 	u_idx = #{user.username}
-	      ORDER BY	s_idx DESC
-	      LIMIT		${pagination.pageNum}, ${pagination.perPage}
-	   </select>
+	 
+	 
+	 <!-- 게시물 목록 + 페이징 + 검색 -->
+	<select id="listSearch" resultType="Survey" >
+		SELECT			sv.*
+		FROM 			survey sv
+		LEFT JOIN		user us ON sv.u_idx = us.id
+		<if test='search.searchType.equals("title")'>
+			WHERE sv.title LIKE CONCAT('%', #{search.keyword}, '%')
+		</if>
+		<if test='search.searchType.equals("content")'>
+			WHERE sv.description LIKE CONCAT('%', #{search.keyword}, '%')
+		</if>
+		<if test='search.searchType.equals("title_content")'>
+			WHERE sv.title LIKE CONCAT('%', #{search.keyword}, '%') 
+				or sv.description LIKE CONCAT('%', #{search.keyword}, '%')
+		</if>
+		<if test='search.searchType.equals("writer")'>
+			WHERE us.writer LIKE CONCAT('%', #{search.keyword}, '%')
+		</if>
+		ORDER BY		s_idx DESC
+	    LIMIT			${pageNum}, ${perPage}
+	</select>
+	 
+	 
+	 <!-- 게시물 총 갯수 + 검색 적용 -->
+	 <select id="searchCount" resultType="int"  parameterType="Search">
+	      SELECT 		COUNT(*) count 
+	      FROM 			survey sv
+	      LEFT JOIN		user us ON sv.u_idx = us.id
+		    <if test='searchType.equals("title")'>
+				WHERE sv.title LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test='searchType.equals("content")'>
+				WHERE sv.description LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test='searchType.equals("title_content")'>
+				WHERE sv.title LIKE CONCAT('%', #{keyword}, '%') 
+					or sv.description LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test='searchType.equals("writer")'>
+				WHERE us.writer LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+	 </select>
 	   
 	   
 	   <select id="getSurvey" resultType="Survey">

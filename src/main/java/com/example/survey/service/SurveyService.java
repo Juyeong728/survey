@@ -10,13 +10,10 @@ import com.example.survey.domain.Response_item;
 import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Search;
 import com.example.survey.domain.Survey;
-import com.example.survey.domain.User;
 
 public interface SurveyService {
 	
 	public List<Survey> selectSurveyList(Pagination pagination);
-	
-	public List<Survey> selectMySurveyList(User user, Pagination pagination);
 	
 	public List<Survey> listSearch(Pagination pagination);
 	

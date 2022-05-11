@@ -41,26 +41,6 @@ public class Controller {
 		return "/list";
 	}
 	
-	@RequestMapping("/mySurveyList")
-	public String mySurveyList(Model model
-			, @RequestParam(value="page", defaultValue="1") int page
-			, Principal principal) {
-		
-		if(principal != null) {
-			user = (User)((Authentication)principal).getPrincipal();
-			int count = surveyservice.getSurveyCount();
-			Pagination pagination = new Pagination(page, count);
-			
-			List<Survey> list = surveyservice.selectMySurveyList(user, pagination);
-			
-			model.addAttribute("list", list);
-			model.addAttribute("pagination", pagination);
-			return "/mySurveys";
-		} else {
-			return "/login";
-		}
-	}
-	
 	@RequestMapping("/listSearch")
 	public String getListSearch(Model model
 			, @RequestParam(value="page", defaultValue="1") int page

@@ -20,7 +20,13 @@
 	margin-bottom: 10px;
 	height: 350px;
 }
-
+.src {
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
+.jumbotron {
+    padding: 100px;
+}
 </style>
 </head>
 
@@ -56,36 +62,35 @@
 	</nav>
 
 
-	
-	<div class="container">
-	
-		<div class="masthead">
-	        <h3 class="text-muted">Project name</h3>
-	        <nav>
-	          <ul class="nav nav-justified">
-	            <li><a href="#">Home</a></li>
-	            <li><a href="mySurveyList?u_idx=${user.u_name}">My surveys</a></li>
-	            <li><a href="#">Services</a></li>
-	            <li><a href="#">About</a></li>
-	            <li><a href="#">Contact</a></li>
-	          </ul>
-	        </nav>
-      	</div>
       	
-      	<div id="content">
 		<div class="jumbotron">
+      	<div class="container">
 	        <h1>Create your survey!</h1>
 	        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
 	        <p><a class="btn btn-lg btn-success" href="/createSurvey" role="button">Get started »</a></p>
       	</div>
       	</div>
       	
-      	<div class="row">
-      		<!--  
-		      <div class="col-md-12">
-		         <h2>My current surveys</h2>
-		       </div>
-		     -->
+	<div class="container">
+	
+		     
+	<!-- search -->
+	<form class="src row form-group">
+		<div class="col-md-3">
+			<select class="dropdown form-control" name="searchType">
+			    <option value="title" <c:if test="${pagination.search.searchType eq 'title'}">selected</c:if>>Title</option>
+		        <option value="content" <c:if test="${pagination.search.searchType eq 'content'}">selected</c:if>>Description</option>
+			    <option value="title_content" <c:if test="${pagination.search.searchType eq 'title_content'}">selected</c:if>>Title+Description</option>
+			    <option value="writer" <c:if test="${pagination.search.searchType eq 'writer'}">selected</c:if>>Writer</option>
+			</select>
+		</div>
+		<div class="col-md-8">
+			<input type="text" class="form-control" name="keyword" value="${pagination.search.keyword}"/>
+		</div>
+		<button type="button" class="btn btn-success" id="searchBtn">Search</button>
+	</form>
+	
+		<div class="row">
 	      	<c:forEach items="${list}" var="survey" varStatus="status">
 	      		<div class="sv col-lg-4">
 	      		<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
@@ -169,13 +174,13 @@
 	</div>
 		
 <script>
-	document.getElementById("searchBtn").onclick = function ( {
+	document.getElementById("searchBtn").onclick = function () {
 		  
-		let searchType = document.getElementsByName("searchType").val();
-		let keyword =  document.getElementsByName("keyword").value;
+		let searchType = document.getElementsByName("searchType")[0].value;
+		let keyword =  document.getElementsByName("keyword")[0].value;
 		
-		location.href = "listPageSearch?page=1" + "&searchType=" + searchType + "&keyword=" + keyword;
-	});
+		location.href = "listSearch?page=1" + "&searchType=" + searchType + "&keyword=" + keyword;
+	};
 </script>
 
 

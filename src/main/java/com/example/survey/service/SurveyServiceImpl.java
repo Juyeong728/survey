@@ -13,7 +13,6 @@ import com.example.survey.domain.Response_item;
 import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Search;
 import com.example.survey.domain.Survey;
-import com.example.survey.domain.User;
 import com.example.survey.mapper.SurveyMapper;
 
 @Service("SurveyServiceImpl")
@@ -24,11 +23,6 @@ public class SurveyServiceImpl implements SurveyService{
 	@Override
 	public List<Survey> selectSurveyList(Pagination pagination){
 		return surveymapper.selectSurveyList(pagination);
-	}
-
-	@Override
-	public List<Survey> selectMySurveyList(User user, Pagination pagination){
-		return surveymapper.selectMySurveyList(user, pagination);
 	}
 	
 	@Override

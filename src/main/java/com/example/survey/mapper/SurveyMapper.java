@@ -12,14 +12,11 @@ import com.example.survey.domain.Response_content;
 import com.example.survey.domain.Response_item;
 import com.example.survey.domain.Response_user;
 import com.example.survey.domain.Survey;
-import com.example.survey.domain.User;
 
 @Mapper
 public interface SurveyMapper {
 	// 게시물 목록 + 페이징
 	public List<Survey> selectSurveyList(Pagination pagination);
-	
-	public List<Survey> selectMySurveyList(User user, Pagination pagination);
 
 	// 게시물 목록 + 페이징 + 검색
 	public List<Survey> listSearch(Pagination pagination);
